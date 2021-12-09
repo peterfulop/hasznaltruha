@@ -1,0 +1,193 @@
+﻿<Window x:Class="hasznaltruha.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hasznaltruha"
+        mc:Ignorable="d"
+        Title="Használt ruha nyilvántartó"
+        FontFamily="Roboto"
+        Height="600"
+        Width="1000"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Használ ruha nyilvántartó"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="20"
+               FontWeight="Bold"/>
+
+        <Grid Grid.Row="1" Margin="20">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="0">
+
+
+                <WrapPanel>
+                    <Label Content="Keresés:"/>
+                    
+                    <RadioButton VerticalAlignment="Center"
+                                 Margin="10 0"
+                                 x:Name="radio_keres_tipus"
+                                 Content="Típus"
+                                 IsChecked="True"/>
+                    
+                    <RadioButton VerticalAlignment="Center"
+                                 Margin="10 0"
+                                 x:Name="radio_keres_meret"
+                                 Content="Méret"/>
+                    
+                    <TextBox Width="288" x:Name="inp_keres"/>
+                    
+                    <Button Content="Keresés"
+                            Padding="10 0"
+                            Margin="10 0"
+                            x:Name="keres_btn"
+                            Click="keres_btn_Click"/>
+                    
+                    <Button Content="Vissza"
+                            Padding="10 0"
+                            x:Name="keres_vissza_btn"
+                            Click="keres_vissza_btn_Click"/>
+                    
+                </WrapPanel>
+                
+                <DataGrid AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          Height="310"
+                          Margin="0 10 0 0"
+                          x:Name="dg_ruhak"
+                          MouseDoubleClick="dg_ruhak_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path='id'}"/>
+                        <DataGridTextColumn Header="Típus" Binding="{Binding Path='Tipus.nev'}"/>
+                        <DataGridTextColumn Header="Szín" Binding="{Binding Path='szin'}"/>
+                        <DataGridTextColumn Header="Méret" Binding="{Binding Path='meret'}"/>
+                        <DataGridTextColumn Header="Ár" Binding="{Binding Path='ar'}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Label
+                    Content="Módosításhoz kattints duplán a tételre!"
+                    FontStyle="Italic" Margin="0 0 0 10"/>
+
+
+                <WrapPanel>
+                    
+                    <Label Content="Exportálás:"/>
+                    
+                    <RadioButton Content="Szín szerint"
+                                 VerticalAlignment="Center"
+                                 Margin="10 0"
+                                 x:Name="radion_export_szin"
+                                 IsChecked="True"
+                                 Click="radion_export_szin_Click"/>
+                    
+                    <RadioButton Content="Típus szerint"
+                                 VerticalAlignment="Center"
+                                 Margin="10 0"
+                                 x:Name="radion_export_tipus"
+                                 Click="radion_export_tipus_Click"/>
+
+                    <RadioButton Content="Méret szerint"
+                                 VerticalAlignment="Center"
+                                 Margin="10 0"
+                                 x:Name="radion_export_meret"
+                                 Click="radion_export_meret_Click"/>
+
+                    <ComboBox Width="150"
+                              Margin="10 0"
+                              x:Name="combo_export_data"/>
+
+                    <Button Content="EXPORT"
+                            Padding="10 0"
+                            Width="75"
+                            x:Name="export_btn"
+                            Click="export_btn_Click"/>
+
+                </WrapPanel>
+                
+                
+            </StackPanel>
+            
+            
+            
+            
+            <StackPanel Grid.Column="1">
+                
+                <Label Content="Adatok hozzáadása"
+                       HorizontalAlignment="Center"
+                       FontSize="16"
+                       x:Name="edit_label_text"/>
+
+                <StackPanel HorizontalAlignment="Center" Margin="0 10">
+                    
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Típus:" Width="50" FontSize="14"/>
+                        <ComboBox Width="200"
+                                  SelectedIndex="0"
+                                  x:Name="combo_tipus"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Szín:" Width="50" FontSize="14"/>
+                        <TextBox Width="200"
+                                 MaxLength="50"
+                                 x:Name="inp_szin"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Méret:" Width="50" FontSize="14"/>
+                        <TextBox Width="200"
+                                  x:Name="inp_meret"/>
+                    </WrapPanel>
+
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Ár:" Width="50" FontSize="14"/>
+                        <TextBox Width="200"
+                                 x:Name="inp_ar"/>
+                    </WrapPanel>
+                    
+                    <Button Content="Mentés/Módosítás"
+                            Margin="0 5" Padding="0 5"
+                            Background="Green" Foreground="white"
+                            x:Name="save_btn"
+                            Click="save_btn_Click"/>
+                    
+                    <Button Content="Törlés"
+                            Margin="0 5" Padding="0 5"
+                            Background="Tomato" Foreground="white"
+                            x:Name="delete_btn"
+                            Click="delete_btn_Click"/>
+                    
+                    <Button Content="Vissza!"
+                            Margin="0 5" Padding="0 5"
+                            Background="Gray" Foreground="white"
+                            x:Name="back_btn"
+                            Click="back_btn_Click"/>
+                    
+                </StackPanel>
+
+
+
+
+
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</Window>
